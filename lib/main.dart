@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
           title: '점메추',
           theme: ThemeData(
             primarySwatch: Colors.blue,
+            // 글꼴 전체 변경
+            fontFamily: "ContentRegular",
           ),
           debugShowCheckedModeBanner: false,
           home: LoadingPage(title: '로딩 페이지'),

@@ -41,6 +41,8 @@ dev_dependencies:
     sdk: flutter
   get:
   flutter_screenutil:
+  flutter_fortune_wheel: ^1.2.0
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -59,6 +61,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.－
   uses-material-design: true
+
+  fonts:
+    - family: TitleBold
+      fonts:
+        - asset: assets/fonts/Happiness-Sans-Print-Bold.ttf
+    - family: ContentRegular
+      fonts:
+        - asset: assets/fonts/Happiness-Sans-Print-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

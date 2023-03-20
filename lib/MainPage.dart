@@ -20,6 +20,11 @@ class _MainPageState extends State<MainPage> {
   // 현재 : 항상 버거킹만 나온다 ㅋㅋ..
   StreamController<int> controller = StreamController<int>();
 
+  final MenuNameController = TextEditingController();
+  final MemoController = TextEditingController();
+
+  String? _chosenValue = "한식";
+
   @override
   void dispose() {
     controller.close();
@@ -28,13 +33,13 @@ class _MainPageState extends State<MainPage> {
 
   Widget build(BuildContext context) {
 
-    final items = <String>[
+    var items = <String>[
       '버거킹',
       '덮덮밥',
       '이삭토스트',
       '마라샹궈',
       '엽떡',
-      '키햐아',
+      '키햐아'
     ];
 
     return Scaffold(
@@ -170,11 +175,129 @@ class _MainPageState extends State<MainPage> {
                       color: Colors.black
                   ),
               ),
-              child: Row(
+              child: Column(
                 children: [
-                  Text("기범님 파트"),
+                  Row(
+                    children: [
+                      SizedBox(width: 20,),
+                      Container(
+                        padding: EdgeInsets.zero,
+                        child: DropdownButton<String>(
+                          value: _chosenValue,
+                          style: TextStyle(color: Colors.black),
+
+                          items: <String>[
+                            '한식',
+                            '일식',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          hint: Text(
+                            "메뉴 선택",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          onChanged: (String? value) {
+                            setState(() {
+                              _chosenValue = value;
+                            });
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 240,),
+                      IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true, // 바깥 영역 터치시 닫을지 여부
+                              builder: (BuildContext context) {
+                                return SingleChildScrollView(
+                                  child: AlertDialog(
+                                    content: Container(
+                                      child: Column(
+                                        children: [
+                                          Icon(Icons.restaurant, color: Colors.black, size: 70.sp,),
+                                          RichText(
+                                              text: TextSpan(
+                                                  style: TextStyle(color: Colors.black), //default
+                                                  children: [
+                                                    TextSpan(text: '  먹거리', style: TextStyle(fontFamily: "TitleBold", fontSize: 50.sp)),
+                                                    TextSpan(text: ' 추가', style: TextStyle(fontFamily: "TitleBold", fontSize: 70.sp)),
+                                                  ])
+                                          ),
+                                          Container(width: 300,
+                                              child: Divider(color: Colors.black, thickness: 2.0)
+                                          ),
+                                          TextFormField(
+                                            controller: MenuNameController,
+                                            decoration: const InputDecoration(
+                                              hintText: "음식 이름",
+                                                border: OutlineInputBorder(),
+
+                                                // enabledBorder 가 들어간다면 border 는 무시됩니다.
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Colors.green,
+                                                    ))
+                                            ),
+                                          ),
+                                          SizedBox(height: 10,),
+                                          TextFormField(
+                                            controller: MemoController,
+                                            decoration: const InputDecoration(
+                                              hintText: "메모",
+                                                border: OutlineInputBorder(),
+
+                                                // enabledBorder 가 들어간다면 border 는 무시됩니다.
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Colors.green,
+                                                    ))
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    insetPadding: const  EdgeInsets.fromLTRB(0,80,0, 80),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text('취소'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: const Text('저장'),
+                                        onPressed: () {
+                                          items.add(MenuNameController.text.trim());
+                                          Navigator.of(context).pop();
+                                          setState(() {
+
+                                          });
+                                          MenuNameController.clear();
+                                          print(items);
+                                          print(items.length);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                          );
+                        },
+                        icon: Icon(Icons.add),
+                      )
+                    ],
+                  ),
+
                 ],
               ),
+
               margin: EdgeInsets.only(left: 45.sp, right: 45.sp),
             ),
           ],

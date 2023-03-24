@@ -17,7 +17,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
 
-  // 현재 : 항상 버거킹만 나온다 ㅋㅋ..
   StreamController<int> controller = StreamController<int>();
 
   final MenuNameController = TextEditingController();
@@ -80,22 +79,26 @@ class _MainPageState extends State<MainPage> {
                     radius: 440.sp,
                     backgroundColor: AppColor.main2,
                   ),
+                  
 
                   Container(
                     //color: Colors.grey[100],
                     height: 800.sp, width: 800.sp,
                     child: FortuneWheel(
+                    // 적용 안되는 것 같음
+                    //alignment: Alignment.centerRight,
                     selected: controller.stream,
                     indicators: <FortuneIndicator>[
                       // 추천받은 음식을 가리키는 화살표
                     ],
-                    styleStrategy: UniformStyleStrategy(
+                    styleStrategy:
+                    UniformStyleStrategy(
                       // 하임 : 이 TextAlign가 적용됐는지 모르겠음
-                      textAlign: TextAlign.left,
+                      //textAlign: TextAlign.center,
                       color: Colors.white,
                       borderColor: AppColor.main2,
                       borderWidth: 20.sp,
-                      textStyle: TextStyle(fontFamily: "TitleBold", color: Colors.black, fontSize: 45.sp),
+                      textStyle: TextStyle(fontFamily: "TitleBold", color: Colors.black, fontSize: 45.sp, ),
                     ),
                     items: [
                       // 룰렛 내에 들어갈 아이템들

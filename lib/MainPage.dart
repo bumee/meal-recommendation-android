@@ -61,7 +61,6 @@ class _MainPageState extends State<MainPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // 룰렛 - 하임
             Container(
